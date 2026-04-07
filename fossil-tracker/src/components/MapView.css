@@ -1,0 +1,15 @@
+.map-container {
+  width: 100%;
+  height: 100%;
+  background: var(--color-base);
+}
+
+/* Vignette overlay on map edges */
+.map-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 400;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+}
