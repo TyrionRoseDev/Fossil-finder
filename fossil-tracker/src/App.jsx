@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import MapView from './components/MapView'
+import SearchBar from './components/SearchBar'
 import { fetchClusters, fetchOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
 
@@ -24,6 +25,10 @@ function App() {
 
   const handleExplore = useCallback((fossil) => {
     setDetailFossil(fossil)
+  }, [])
+
+  const handleSearch = useCallback((taxonName) => {
+    setFilters((prev) => ({ ...prev, taxon: taxonName }))
   }, [])
 
   useEffect(() => {
@@ -66,6 +71,7 @@ function App() {
         fossils={fossils}
         onExplore={handleExplore}
       />
+      <SearchBar onSelect={handleSearch} />
       {loading && (
         <div className="loading-indicator">Loading fossils...</div>
       )}
