@@ -36,12 +36,14 @@ async function fetchJson(path, params) {
 }
 
 export async function fetchClusters(filters = {}) {
+  const hasFilter = filters.taxon || filters.interval || filters.ageMin || filters.ageMax
   const params = {
     level: 2,
-    base_name: filters.taxon,
-    interval: filters.interval,
-    min_ma: filters.ageMin,
-    max_ma: filters.ageMax,
+    base_name: filters.taxon || undefined,
+    interval: filters.interval || undefined,
+    min_ma: filters.ageMin || undefined,
+    max_ma: filters.ageMax || undefined,
+    all_records: hasFilter ? undefined : true,
   }
   const records = await fetchJson('/occs/geosum.json', params)
   return parseClusters(records)

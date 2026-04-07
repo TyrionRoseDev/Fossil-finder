@@ -1,7 +1,22 @@
-import { useMapEvents } from 'react-leaflet'
+import { useEffect } from 'react'
+import { useMap, useMapEvents } from 'react-leaflet'
 
 function MapEventHandler({ onViewChange }) {
-  const map = useMapEvents({
+  const map = useMap()
+
+  useEffect(() => {
+    const bounds = map.getBounds()
+    const zoom = map.getZoom()
+    onViewChange({
+      north: bounds.getNorth(),
+      south: bounds.getSouth(),
+      east: bounds.getEast(),
+      west: bounds.getWest(),
+      zoom,
+    })
+  }, [])
+
+  useMapEvents({
     moveend() {
       const bounds = map.getBounds()
       const zoom = map.getZoom()
@@ -14,6 +29,7 @@ function MapEventHandler({ onViewChange }) {
       })
     },
   })
+
   return null
 }
 
