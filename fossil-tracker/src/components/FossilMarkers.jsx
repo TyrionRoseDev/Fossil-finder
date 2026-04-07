@@ -1,6 +1,7 @@
-import { Marker } from 'react-leaflet'
+import { Marker, Popup } from 'react-leaflet'
 import MarkerClusterGroup from 'react-leaflet-cluster'
 import L from 'leaflet'
+import FossilPopup from './FossilPopup'
 import './FossilMarkers.css'
 
 function createFossilIcon() {
@@ -60,6 +61,9 @@ function FossilMarkers({ fossils, zoom, onExplore }) {
           position={[fossil.lat, fossil.lng]}
           icon={createFossilIcon()}
         >
+          <Popup>
+            <FossilPopup fossil={fossil} onExplore={onExplore} />
+          </Popup>
         </Marker>
       ))}
     </MarkerClusterGroup>

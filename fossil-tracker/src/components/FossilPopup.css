@@ -1,0 +1,94 @@
+.fossil-popup {
+  min-width: 180px;
+  padding: 4px 0;
+}
+
+.fossil-popup-accent {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 169, 89, 0.5), transparent);
+  margin-bottom: 8px;
+}
+
+.fossil-popup-era {
+  color: var(--color-gold);
+  margin-bottom: 4px;
+}
+
+.fossil-popup-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.fossil-popup-location {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.fossil-popup-age {
+  font-size: 0.7rem;
+  color: var(--color-gold-muted);
+  margin-top: 2px;
+}
+
+.fossil-popup-divider {
+  height: 1px;
+  background: var(--color-gold-border);
+  margin: 8px 0;
+}
+
+.fossil-popup-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fossil-popup-explore {
+  background: none;
+  border: none;
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-smooth);
+}
+
+.fossil-popup-explore:hover {
+  color: var(--color-text);
+}
+
+/* Override Leaflet's default popup styles for cinematic theme */
+.leaflet-popup-content-wrapper {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-gold-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 169, 89, 0.08) !important;
+  color: var(--color-text) !important;
+}
+
+.leaflet-popup-content {
+  margin: 12px 16px !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-gold-border) !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup-close-button {
+  color: var(--color-gold-muted) !important;
+  font-size: 18px !important;
+  top: 6px !important;
+  right: 8px !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: var(--color-gold) !important;
+}

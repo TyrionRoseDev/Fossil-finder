@@ -8,6 +8,7 @@ function App() {
   const [fossils, setFossils] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [detailFossil, setDetailFossil] = useState(null)
   const [filters, setFilters] = useState({
     taxon: '',
     interval: '',
@@ -19,6 +20,10 @@ function App() {
 
   const handleViewChange = useCallback((view) => {
     setMapView(view)
+  }, [])
+
+  const handleExplore = useCallback((fossil) => {
+    setDetailFossil(fossil)
   }, [])
 
   useEffect(() => {
@@ -56,7 +61,11 @@ function App() {
 
   return (
     <div className="app">
-      <MapView onViewChange={handleViewChange} fossils={fossils} />
+      <MapView
+        onViewChange={handleViewChange}
+        fossils={fossils}
+        onExplore={handleExplore}
+      />
       {loading && (
         <div className="loading-indicator">Loading fossils...</div>
       )}
