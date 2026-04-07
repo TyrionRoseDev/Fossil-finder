@@ -5,8 +5,10 @@ import DetailPanel from './components/DetailPanel'
 import FilterChips from './components/FilterChips'
 import FilterPanel from './components/FilterPanel'
 import TimelineSlider from './components/TimelineSlider'
+import FavoritesMenu from './components/FavoritesMenu'
 import { fetchClusters, fetchOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
+import { useFavorites } from './hooks/useFavorites'
 
 function App() {
   const [mapView, setMapView] = useState(null)
@@ -37,15 +39,7 @@ function App() {
 
   const [filterPanelOpen, setFilterPanelOpen] = useState(false)
 
-  const [favorites, setFavorites] = useState([])
-
-  const handleToggleFavorite = useCallback((occurrenceNo) => {
-    setFavorites((prev) =>
-      prev.includes(occurrenceNo)
-        ? prev.filter((id) => id !== occurrenceNo)
-        : [...prev, occurrenceNo]
-    )
-  }, [])
+  const { favorites, toggleFavorite, isFavorite } = useFavorites()
 
   const handleRemoveFilter = useCallback((key) => {
     setFilters((prev) => {
@@ -105,6 +99,7 @@ function App() {
         onExplore={handleExplore}
       />
       <SearchBar onSelect={handleSearch} />
+      <FavoritesMenu count={favorites.length} />
       <FilterChips
         filters={filters}
         onRemove={handleRemoveFilter}
@@ -127,8 +122,8 @@ function App() {
       <DetailPanel
         fossil={detailFossil}
         onClose={() => setDetailFossil(null)}
-        isFavorite={detailFossil ? favorites.includes(detailFossil.occurrence_no) : false}
-        onToggleFavorite={handleToggleFavorite}
+        isFavorite={detailFossil ? isFavorite(detailFossil.occurrence_no) : false}
+        onToggleFavorite={toggleFavorite}
       />
     </div>
   )
