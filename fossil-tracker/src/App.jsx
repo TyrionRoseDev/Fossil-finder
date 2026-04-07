@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import MapView from './components/MapView'
 import SearchBar from './components/SearchBar'
+import DetailPanel from './components/DetailPanel'
 import { fetchClusters, fetchOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
 
@@ -29,6 +30,16 @@ function App() {
 
   const handleSearch = useCallback((taxonName) => {
     setFilters((prev) => ({ ...prev, taxon: taxonName }))
+  }, [])
+
+  const [favorites, setFavorites] = useState([])
+
+  const handleToggleFavorite = useCallback((occurrenceNo) => {
+    setFavorites((prev) =>
+      prev.includes(occurrenceNo)
+        ? prev.filter((id) => id !== occurrenceNo)
+        : [...prev, occurrenceNo]
+    )
   }, [])
 
   useEffect(() => {
@@ -78,6 +89,12 @@ function App() {
       {error && (
         <div className="error-indicator">{error}</div>
       )}
+      <DetailPanel
+        fossil={detailFossil}
+        onClose={() => setDetailFossil(null)}
+        isFavorite={detailFossil ? favorites.includes(detailFossil.occurrence_no) : false}
+        onToggleFavorite={handleToggleFavorite}
+      />
     </div>
   )
 }
