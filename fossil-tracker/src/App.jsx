@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react'
 import MapView from './components/MapView'
 import SearchBar from './components/SearchBar'
 import DetailPanel from './components/DetailPanel'
+import FilterChips from './components/FilterChips'
+import FilterPanel from './components/FilterPanel'
 import { fetchClusters, fetchOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
 
@@ -32,6 +34,8 @@ function App() {
     setFilters((prev) => ({ ...prev, taxon: taxonName }))
   }, [])
 
+  const [filterPanelOpen, setFilterPanelOpen] = useState(false)
+
   const [favorites, setFavorites] = useState([])
 
   const handleToggleFavorite = useCallback((occurrenceNo) => {
@@ -40,6 +44,23 @@ function App() {
         ? prev.filter((id) => id !== occurrenceNo)
         : [...prev, occurrenceNo]
     )
+  }, [])
+
+  const handleRemoveFilter = useCallback((key) => {
+    setFilters((prev) => {
+      const next = { ...prev }
+      if (key === 'age') {
+        next.ageMin = ''
+        next.ageMax = ''
+      } else {
+        next[key] = ''
+      }
+      return next
+    })
+  }, [])
+
+  const handleApplyFilters = useCallback((newFilters) => {
+    setFilters(newFilters)
   }, [])
 
   useEffect(() => {
@@ -83,6 +104,18 @@ function App() {
         onExplore={handleExplore}
       />
       <SearchBar onSelect={handleSearch} />
+      <FilterChips
+        filters={filters}
+        onRemove={handleRemoveFilter}
+        onOpenPanel={() => setFilterPanelOpen(true)}
+      />
+      {filterPanelOpen && (
+        <FilterPanel
+          filters={filters}
+          onApply={handleApplyFilters}
+          onClose={() => setFilterPanelOpen(false)}
+        />
+      )}
       {loading && (
         <div className="loading-indicator">Loading fossils...</div>
       )}
