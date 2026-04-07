@@ -93,6 +93,15 @@ function App() {
 
   return (
     <div className="app">
+      <header className="app-header glass">
+        <div className="app-logo">
+          <div className="app-logo-icon">&#129430;</div>
+          <div className="app-logo-text">
+            <span className="app-logo-title">FOSSIL TRACKER</span>
+            <span className="app-logo-subtitle">Explore Deep Time</span>
+          </div>
+        </div>
+      </header>
       <MapView
         onViewChange={handleViewChange}
         fossils={fossils}

@@ -13,3 +13,14 @@
   z-index: 400;
   background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
 }
+
+/* Style Leaflet attribution to match theme */
+.leaflet-control-attribution {
+  background: rgba(13, 11, 8, 0.7) !important;
+  color: var(--color-gold-muted) !important;
+  font-size: 0.6rem !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--color-gold) !important;
+}
