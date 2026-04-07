@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar'
 import DetailPanel from './components/DetailPanel'
 import FilterChips from './components/FilterChips'
 import FilterPanel from './components/FilterPanel'
+import TimelineSlider from './components/TimelineSlider'
 import { fetchClusters, fetchOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
 
@@ -109,6 +110,7 @@ function App() {
         onRemove={handleRemoveFilter}
         onOpenPanel={() => setFilterPanelOpen(true)}
       />
+      <TimelineSlider filters={filters} onFilterChange={setFilters} />
       {filterPanelOpen && (
         <FilterPanel
           filters={filters}
