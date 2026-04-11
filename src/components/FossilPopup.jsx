@@ -2,7 +2,7 @@ import { memo } from 'react'
 import './FossilPopup.css'
 
 function getCreatureLabel(phylum, className) {
-  const p = (phylum || '').toLowerCase()
+  const p = (phylum || '').toLowerCase().replace('no_phylum_specified', '')
   const c = (className || '').toLowerCase()
   if (p === 'chordata') {
     if (c === 'mammalia') return 'Mammal'

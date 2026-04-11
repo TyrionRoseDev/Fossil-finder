@@ -28,6 +28,7 @@ function App() {
   const [appReady, setAppReady] = useState(false)
   const [lastFitFilter, setLastFitFilter] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [hasInteracted, setHasInteracted] = useState(false)
   const [speciesInfo, setSpeciesInfo] = useState(null) // { fossil, creatureType }
 
   // Mark app as ready once first data loads
@@ -40,7 +41,12 @@ function App() {
   const debouncedMapView = useDebounce(mapView, 600)
 
   const handleViewChange = useCallback((view) => {
-    setMapView(view)
+    setMapView((prev) => {
+      if (prev && (prev.zoom !== view.zoom || prev.lat !== view.lat || prev.lng !== view.lng)) {
+        setHasInteracted(true)
+      }
+      return view
+    })
   }, [])
 
   const handleExplore = useCallback((fossil) => {
@@ -48,6 +54,7 @@ function App() {
   }, [])
 
   const handleSearch = useCallback((taxonName) => {
+    setHasInteracted(true)
     setFilters((prev) => ({ ...prev, taxon: taxonName }))
   }, [])
 
@@ -69,6 +76,7 @@ function App() {
   }, [])
 
   const handleApplyFilters = useCallback((newFilters) => {
+    setHasInteracted(true)
     setFilters(newFilters)
   }, [])
 
@@ -192,7 +200,7 @@ function App() {
       {error && (
         <div className="error-indicator">{error}</div>
       )}
-      {!detailFossil && !filters.taxon && !filters.interval && !loading && fossils.length === 0 && (
+      {!detailFossil && !hasInteracted && !filters.taxon && !filters.interval && (
         <div className="welcome-message">
           <div className="welcome-title">Explore ancient life on Earth</div>
           <div className="welcome-subtitle">

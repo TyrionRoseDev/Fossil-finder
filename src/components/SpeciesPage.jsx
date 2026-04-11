@@ -5,7 +5,7 @@ import './SpeciesPage.css'
 
 // Same friendly group mapping as DetailPanel
 function getFriendlyGroup(phylum, className) {
-  const p = (phylum || '').toLowerCase()
+  const p = (phylum || '').toLowerCase().replace('no_phylum_specified', '')
   const c = (className || '').toLowerCase()
   if (p === 'chordata') {
     if (c === 'mammalia') return 'Mammal'

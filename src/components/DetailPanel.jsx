@@ -65,7 +65,7 @@ function friendlyEcology(tag) {
 
 // Map phylum+class to a simple, friendly group name
 function getFriendlyGroup(phylum, className) {
-  const p = (phylum || '').toLowerCase()
+  const p = (phylum || '').toLowerCase().replace('no_phylum_specified', '')
   const c = (className || '').toLowerCase()
 
   if (p === 'chordata') {
@@ -101,7 +101,7 @@ function getFriendlyGroup(phylum, className) {
 
 // Map phylum + class to a plain-English creature description
 function getCreatureType(phylum, className) {
-  const p = (phylum || '').toLowerCase()
+  const p = (phylum || '').toLowerCase().replace('no_phylum_specified', '')
   const c = (className || '').toLowerCase()
 
   // Arthropods

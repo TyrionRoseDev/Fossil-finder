@@ -201,9 +201,14 @@ body {
   z-index: 500;
   text-align: center;
   max-width: 400px;
-  padding: 0 24px;
+  padding: 32px 36px;
   pointer-events: none;
   animation: welcomeFade 1s ease 0.5s both;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @keyframes welcomeFade {
@@ -222,7 +227,7 @@ body {
 
 .welcome-subtitle {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.75);
   margin-top: 12px;
   line-height: 1.6;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
