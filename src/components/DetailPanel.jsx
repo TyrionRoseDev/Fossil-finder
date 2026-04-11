@@ -279,12 +279,29 @@ function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpec
   const creatureType = getCreatureType(fossil.phylum, fossil.class)
   const friendlyGroup = getFriendlyGroup(fossil.phylum, fossil.class)
 
+  const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN
+  const staticMapUrl = mapboxToken
+    ? `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s+4285f4(${fossil.lng},${fossil.lat})/${fossil.lng},${fossil.lat},6,0/400x200@2x?access_token=${mapboxToken}`
+    : null
+
   return (
     <div className="detail-panel-overlay" onClick={onClose}>
       <div className="detail-panel" onClick={(e) => e.stopPropagation()}>
         <div className="detail-panel-accent" />
 
         <button className="detail-panel-close" onClick={onClose}>&times;</button>
+
+        {/* Location map */}
+        {staticMapUrl && (
+          <div className="detail-panel-map">
+            <img
+              src={staticMapUrl}
+              alt={`Discovery site near ${location || 'unknown'}`}
+              className="detail-panel-map-img"
+            />
+            <div className="detail-panel-map-gradient" />
+          </div>
+        )}
 
         {/* Header */}
         <div className="detail-panel-header">
@@ -300,62 +317,60 @@ function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpec
           )}
         </div>
 
-        {/* Quick facts as compact cards */}
-        <div className="detail-panel-quick-facts">
-          {friendlyGroup && (
-            <div className="detail-panel-quick-fact">
-              <span className="detail-panel-quick-label">Type</span>
-              <span className="detail-panel-quick-value">{friendlyGroup}</span>
-            </div>
-          )}
-          {fossil.early_interval && (
-            <div className="detail-panel-quick-fact">
-              <span className="detail-panel-quick-label">Period</span>
-              <span className="detail-panel-quick-value">{fossil.early_interval}</span>
-            </div>
-          )}
-          {ageText && (
-            <div className="detail-panel-quick-fact">
-              <span className="detail-panel-quick-label">Lived</span>
-              <span className="detail-panel-quick-value">{ageText}</span>
-            </div>
-          )}
+        {/* Discovery details */}
+        <div className="detail-panel-section">
+          <div className="detail-panel-section-title">Discovery</div>
+
           {location && (
-            <div className="detail-panel-quick-fact">
-              <span className="detail-panel-quick-label">Found in</span>
-              <span className="detail-panel-quick-value">{location}</span>
+            <div className="detail-panel-fossil-detail">
+              <span className="detail-panel-fossil-label">Location</span>
+              <span className="detail-panel-fossil-value">{location}</span>
             </div>
           )}
+          {fossil.collection_name && (
+            <div className="detail-panel-fossil-detail">
+              <span className="detail-panel-fossil-label">Site</span>
+              <span className="detail-panel-fossil-value">{fossil.collection_name}</span>
+            </div>
+          )}
+          {fossil.formation && (
+            <div className="detail-panel-fossil-detail">
+              <span className="detail-panel-fossil-label">Rock formation</span>
+              <span className="detail-panel-fossil-value">{fossil.formation}</span>
+            </div>
+          )}
+          {fossil.primary_reference && (
+            <div className="detail-panel-fossil-detail">
+              <span className="detail-panel-fossil-label">Described by</span>
+              <span className="detail-panel-fossil-value">{fossil.primary_reference}</span>
+            </div>
+          )}
+          <div className="detail-panel-fossil-detail">
+            <span className="detail-panel-fossil-label">Coordinates</span>
+            <span className="detail-panel-fossil-value">
+              {fossil.lat.toFixed(2)}°N, {fossil.lng.toFixed(2)}°W
+            </span>
+          </div>
         </div>
 
-        {/* The fossil discovery */}
-        {(fossil.collection_name || fossil.primary_reference) && (
-          <div className="detail-panel-section">
-            <div className="detail-panel-section-title">About this fossil</div>
-            {fossil.collection_name && (
-              <div className="detail-panel-fossil-detail">
-                <span className="detail-panel-fossil-label">Found at</span>
-                <span className="detail-panel-fossil-value">{fossil.collection_name}</span>
+        {/* Quick facts */}
+        <div className="detail-panel-section">
+          <div className="detail-panel-section-title">Age</div>
+          <div className="detail-panel-quick-facts">
+            {fossil.early_interval && (
+              <div className="detail-panel-quick-fact">
+                <span className="detail-panel-quick-label">Period</span>
+                <span className="detail-panel-quick-value">{fossil.early_interval}</span>
               </div>
             )}
-            {fossil.primary_reference && (
-              <div className="detail-panel-fossil-detail">
-                <span className="detail-panel-fossil-label">Described by</span>
-                <span className="detail-panel-fossil-value">{fossil.primary_reference}</span>
+            {ageText && (
+              <div className="detail-panel-quick-fact">
+                <span className="detail-panel-quick-label">Lived</span>
+                <span className="detail-panel-quick-value">{ageText}</span>
               </div>
             )}
           </div>
-        )}
-
-        {/* How did it live */}
-        {ecologyTags.length > 0 && (
-          <div className="detail-panel-section">
-            <div className="detail-panel-section-title">How did it live?</div>
-            <p className="detail-panel-ecology-text">
-              {buildEcologyDescription(name.split(' ')[0], ecologyTags)}
-            </p>
-          </div>
-        )}
+        </div>
 
         {loading && (
           <div className="detail-panel-loading">Loading details...</div>
@@ -373,7 +388,7 @@ function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpec
             className="detail-panel-action detail-panel-action-link"
             onClick={() => onShowSpecies(fossil, creatureType)}
           >
-            Learn more →
+            About {friendlyGroup}s →
           </button>
         </div>
       </div>
