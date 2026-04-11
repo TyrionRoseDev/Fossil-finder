@@ -58,6 +58,17 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
+.results-panel-search-header {
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  color: #9aa0a6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.results-panel-search-header strong {
+  color: #8ab4f8;
+}
+
 .results-panel-list {
   list-style: none;
   padding: 4px 0;

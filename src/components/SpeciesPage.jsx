@@ -124,6 +124,11 @@ function SpeciesPage({ fossil, creatureType, onClose, onBack }) {
               className="species-page-hero-img"
             />
             <div className="species-page-hero-gradient" />
+            <div className="species-page-hero-caption">
+              {wiki.imageIsPhoto
+                ? `Image may show a living relative of ${genus}`
+                : `Image: ${genus}`}
+            </div>
           </div>
         ) : (
           <div className="species-page-no-hero" />

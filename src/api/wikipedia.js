@@ -44,6 +44,7 @@ async function fetchBestImage(pageTitle) {
     })
 
     const best = preferred || images[0]
+    const isIllustration = !!preferred // If we found a reconstruction/restoration, it's an illustration
 
     // Get the highest resolution source
     const source =
@@ -53,8 +54,8 @@ async function fetchBestImage(pageTitle) {
 
     if (!source) return null
 
-    // Ensure full URL
-    return source.startsWith('//') ? `https:${source}` : source
+    const url = source.startsWith('//') ? `https:${source}` : source
+    return { url, isIllustration }
   } catch {
     return null
   }
@@ -81,17 +82,22 @@ export async function fetchWikipediaSummary(term) {
       if (data.type === 'disambiguation') continue
 
       // Try to get a better image from the page's media list
-      const betterImage = await fetchBestImage(data.title)
+      const mediaResult = await fetchBestImage(data.title)
+
+      const image = mediaResult?.url ||
+        data.originalimage?.source ||
+        data.thumbnail?.source ||
+        null
+
+      // If we didn't find an illustration/reconstruction, the image is likely a photo
+      const imageIsPhoto = image && !mediaResult?.isIllustration
 
       return {
         title: data.title,
         description: data.description || null,
         extract: data.extract || null,
-        image:
-          betterImage ||
-          data.originalimage?.source ||
-          data.thumbnail?.source ||
-          null,
+        image,
+        imageIsPhoto,
         pageUrl: data.content_urls?.desktop?.page || null,
       }
     } catch {

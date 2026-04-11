@@ -107,6 +107,16 @@
   background: linear-gradient(transparent, #121214);
 }
 
+.species-page-hero-caption {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-style: italic;
+  z-index: 2;
+}
+
 /* No image placeholder */
 .species-page-no-hero {
   height: 60px;

@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from 'react'
 import './ResultsPanel.css'
 
-function ResultsPanel({ fossils, isClustered, onSelect }) {
+function ResultsPanel({ fossils, isClustered, onSelect, searchTaxon }) {
   const [open, setOpen] = useState(false)
 
   // Auto-open when results first arrive
@@ -23,6 +23,11 @@ function ResultsPanel({ fossils, isClustered, onSelect }) {
 
       {open && (
         <div className="results-panel-body">
+          {searchTaxon && (
+            <div className="results-panel-search-header">
+              Showing fossils related to <strong>{searchTaxon}</strong>
+            </div>
+          )}
           <ul className="results-panel-list">
             {fossils.map((fossil) => (
               <li
@@ -41,7 +46,7 @@ function ResultsPanel({ fossils, isClustered, onSelect }) {
                   </div>
                 </div>
                 <div className="results-panel-item-age">
-                  {fossil.max_ma && fossil.min_ma
+                  {fossil.max_ma != null && fossil.min_ma != null && fossil.max_ma > 0
                     ? `${fossil.max_ma}\u2013${fossil.min_ma} Ma`
                     : ''}
                 </div>

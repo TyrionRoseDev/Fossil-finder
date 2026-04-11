@@ -159,6 +159,7 @@ function App() {
         fossils={searchResults.length > 0 ? searchResults : fossils}
         isClustered={searchResults.length === 0 && debouncedMapView?.zoom <= 5}
         onSelect={handleExplore}
+        searchTaxon={filters.taxon || null}
       />
       <TimelineSlider filters={filters} onFilterChange={setFilters} />
       {filterPanelOpen && (
