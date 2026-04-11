@@ -25,9 +25,17 @@ function App() {
     ageMax: '',
   })
   const [fitTarget, setFitTarget] = useState(null)
+  const [appReady, setAppReady] = useState(false)
   const [lastFitFilter, setLastFitFilter] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [speciesInfo, setSpeciesInfo] = useState(null) // { fossil, creatureType }
+
+  // Mark app as ready once first data loads
+  useEffect(() => {
+    if (!appReady && fossils.length > 0) {
+      setTimeout(() => setAppReady(true), 300)
+    }
+  }, [fossils, appReady])
 
   const debouncedMapView = useDebounce(mapView, 600)
 
@@ -128,6 +136,12 @@ function App() {
 
   return (
     <div className="app">
+      {!appReady && (
+        <div className={`app-loading ${fossils.length > 0 ? 'fade-out' : ''}`}>
+          <div className="app-loading-spinner" />
+          <div className="app-loading-text">Loading the globe...</div>
+        </div>
+      )}
       <header className="app-header">
         <div className="app-logo">
           <svg className="app-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,10 +184,21 @@ function App() {
         />
       )}
       {loading && (
-        <div className="loading-indicator">Loading fossils...</div>
+        <div className="loading-indicator">
+          <span className="loading-dot" />
+          Loading fossils...
+        </div>
       )}
       {error && (
         <div className="error-indicator">{error}</div>
+      )}
+      {!detailFossil && !filters.taxon && !filters.interval && !loading && fossils.length === 0 && (
+        <div className="welcome-message">
+          <div className="welcome-title">Explore ancient life on Earth</div>
+          <div className="welcome-subtitle">
+            Search for a species, tap a filter, or zoom into the globe to discover fossils from millions of years ago.
+          </div>
+        </div>
       )}
       <DetailPanel
         fossil={detailFossil}

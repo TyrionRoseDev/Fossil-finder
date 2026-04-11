@@ -45,7 +45,8 @@ function TimelineSlider({ filters, onFilterChange }) {
   const rightPercent = 100 - toPercent(ageMin)
 
   return (
-    <div className="timeline-slider glass">
+    <div className="timeline-slider">
+      <div className="timeline-title">Filter by time period</div>
       {/* Era labels */}
       <div className="timeline-eras">
         {ERAS.map((era) => (

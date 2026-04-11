@@ -193,6 +193,23 @@
   margin-bottom: 28px;
 }
 
+.species-page-read-more {
+  background: none;
+  border: none;
+  color: #8ab4f8;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 8px;
+  transition: color 0.15s ease;
+}
+
+.species-page-read-more:hover {
+  color: #aecbfa;
+}
+
 .species-page-section-title {
   font-size: 0.9rem;
   font-weight: 600;

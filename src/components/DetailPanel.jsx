@@ -239,6 +239,16 @@ function buildEcologyDescription(genus, tags) {
 function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpecies }) {
   const [detail, setDetail] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  function handleShare() {
+    const name = fossil.accepted_name || fossil.identified_name || 'Fossil'
+    const text = `${name} — found at ${fossil.lat.toFixed(2)}°N, ${fossil.lng.toFixed(2)}°W. ${fossil.early_interval || ''}, ${fossil.max_ma || '?'}–${fossil.min_ma || '?'} Ma. Discovered on Fossil Tracker.`
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   useEffect(() => {
     if (!fossil) return
@@ -377,13 +387,21 @@ function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpec
         )}
 
         {/* Actions */}
-        <div className="detail-panel-actions">
+        <div className="detail-panel-actions-row">
           <button
             className="detail-panel-action detail-panel-action-save"
             onClick={() => onToggleFavorite(fossil)}
           >
             {isFavorite ? '♥ Saved' : '♡ Save'}
           </button>
+          <button
+            className="detail-panel-action detail-panel-action-share"
+            onClick={handleShare}
+          >
+            {copied ? '✓ Copied' : '↗ Share'}
+          </button>
+        </div>
+        <div className="detail-panel-actions-primary">
           <button
             className="detail-panel-action detail-panel-action-link"
             onClick={() => onShowSpecies(fossil, creatureType)}

@@ -264,11 +264,14 @@
   text-align: center;
 }
 
-.detail-panel-actions {
-  padding: 24px;
+.detail-panel-actions-row {
+  padding: 16px 24px 0;
   display: flex;
-  gap: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 10px;
+}
+
+.detail-panel-actions-primary {
+  padding: 10px 24px 24px;
 }
 
 .detail-panel-action {
@@ -284,13 +287,15 @@
   transition: all 0.15s ease;
 }
 
-.detail-panel-action-save {
+.detail-panel-action-save,
+.detail-panel-action-share {
   background: rgba(255, 255, 255, 0.08);
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   color: #e8eaed;
 }
 
-.detail-panel-action-save:hover {
+.detail-panel-action-save:hover,
+.detail-panel-action-share:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.25);
 }
@@ -299,6 +304,7 @@
   background: #4285f4;
   border: none;
   color: #ffffff;
+  width: 100%;
 }
 
 .detail-panel-action-link:hover {

@@ -1,43 +1,48 @@
 .fossil-popup {
-  min-width: 180px;
-  padding: 4px 0;
-}
-
-.fossil-popup-accent {
-  height: 2px;
-  background: var(--color-accent);
-  margin-bottom: 8px;
-  border-radius: 1px;
+  min-width: 200px;
+  max-width: 260px;
+  padding: 2px 0;
 }
 
 .fossil-popup-era {
-  color: var(--color-accent);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8ab4f8;
   margin-bottom: 4px;
 }
 
 .fossil-popup-name {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: bold;
-  color: var(--color-text);
-  line-height: 1.2;
+  color: #e8eaed;
+  line-height: 1.25;
+}
+
+.fossil-popup-creature {
+  font-size: 0.72rem;
+  color: #9aa0a6;
+  margin-top: 3px;
 }
 
 .fossil-popup-location {
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
-  margin-top: 4px;
+  font-size: 0.7rem;
+  color: #80868b;
+  margin-top: 6px;
 }
 
 .fossil-popup-age {
-  font-size: 0.7rem;
-  color: var(--color-text-secondary);
+  font-size: 0.65rem;
+  color: #80868b;
   margin-top: 2px;
+  font-family: 'SF Mono', 'Menlo', monospace;
 }
 
 .fossil-popup-divider {
   height: 1px;
-  background: var(--color-border);
+  background: rgba(255, 255, 255, 0.08);
   margin: 8px 0;
 }
 
@@ -50,41 +55,42 @@
 .fossil-popup-explore {
   background: none;
   border: none;
-  color: var(--color-accent);
+  color: #8ab4f8;
   font-family: var(--font-body);
   font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 1px;
+  font-weight: 600;
   cursor: pointer;
   padding: 0;
-  transition: color var(--transition-smooth);
+  transition: color 0.15s ease;
 }
 
 .fossil-popup-explore:hover {
-  color: var(--color-accent-hover);
+  color: #aecbfa;
 }
 
-/* Override Mapbox GL popup styles */
+/* Override Mapbox GL popup styles — dark theme */
 .mapboxgl-popup-content {
-  background: var(--color-surface) !important;
-  border: none !important;
+  background: rgba(28, 30, 33, 0.95) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 12px !important;
-  box-shadow: var(--shadow-lg) !important;
-  color: var(--color-text) !important;
-  padding: 12px 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  color: #e8eaed !important;
+  padding: 14px 16px !important;
 }
 
 .mapboxgl-popup-tip {
-  border-top-color: var(--color-surface) !important;
+  border-top-color: rgba(28, 30, 33, 0.95) !important;
 }
 
 .mapboxgl-popup-close-button {
-  color: var(--color-text-secondary) !important;
-  font-size: 18px !important;
+  color: #80868b !important;
+  font-size: 16px !important;
   padding: 4px 8px !important;
 }
 
 .mapboxgl-popup-close-button:hover {
-  color: var(--color-text) !important;
+  color: #e8eaed !important;
   background: none !important;
 }

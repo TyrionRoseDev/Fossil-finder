@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { fetchWikipediaSummary } from '../api/wikipedia'
 import { fetchTaxonDetail } from '../api/pbdb'
 import './SpeciesPage.css'
@@ -74,6 +74,34 @@ function buildLifestyleText(detail) {
   else if (motility.includes('slow')) parts.push('It moved slowly across the sea floor.')
 
   return parts.length > 0 ? parts.join(' ') : null
+}
+
+function AboutSection({ genus, text }) {
+  const [expanded, setExpanded] = useState(false)
+
+  // Split into sentences, show first 3 by default
+  const sentences = useMemo(() => {
+    return text.match(/[^.!?]+[.!?]+/g) || [text]
+  }, [text])
+
+  const preview = sentences.slice(0, 3).join(' ').trim()
+  const hasMore = sentences.length > 3
+  const displayText = expanded ? text : preview
+
+  return (
+    <div className="species-page-description">
+      <div className="species-page-section-title">About {genus}</div>
+      <p className="species-page-text">{displayText}</p>
+      {hasMore && !expanded && (
+        <button
+          className="species-page-read-more"
+          onClick={() => setExpanded(true)}
+        >
+          Read more
+        </button>
+      )}
+    </div>
+  )
 }
 
 function SpeciesPage({ fossil, creatureType, onClose, onBack }) {
@@ -182,10 +210,7 @@ function SpeciesPage({ fossil, creatureType, onClose, onBack }) {
 
           {/* About — Wikipedia description */}
           {!loading && wiki?.extract && (
-            <div className="species-page-description">
-              <div className="species-page-section-title">About {genus}</div>
-              <p className="species-page-text">{wiki.extract}</p>
-            </div>
+            <AboutSection genus={genus} text={wiki.extract} />
           )}
 
           {/* Lifestyle — from PBDB ecology data */}
