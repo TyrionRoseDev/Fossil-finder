@@ -106,60 +106,60 @@ function getCreatureType(phylum, className) {
 
   // Arthropods
   if (p === 'arthropoda') {
-    if (c === 'trilobita') return 'An ancient trilobite — an extinct marine arthropod'
-    if (c === 'insecta') return 'An ancient insect'
-    if (c === 'malacostraca') return 'An ancient crustacean, related to crabs and shrimp'
-    if (c === 'arachnida') return 'An ancient arachnid, related to spiders'
-    if (c === 'ostracoda') return 'A tiny shelled crustacean, known as a seed shrimp'
-    return 'An ancient arthropod — a jointed-leg animal'
+    if (c === 'trilobita') return '🦀 An ancient trilobite — an extinct marine arthropod'
+    if (c === 'insecta') return '🐛 An ancient insect'
+    if (c === 'malacostraca') return '🦀 An ancient crustacean, related to crabs and shrimp'
+    if (c === 'arachnida') return '🕷️ An ancient arachnid, related to spiders'
+    if (c === 'ostracoda') return '🦐 A tiny shelled crustacean, known as a seed shrimp'
+    return '🦀 An ancient arthropod — a jointed-leg animal'
   }
 
   // Mollusks
   if (p === 'mollusca') {
-    if (c === 'bivalvia') return 'An ancient bivalve — a type of clam or mussel'
-    if (c === 'gastropoda') return 'An ancient gastropod — a type of snail'
-    if (c === 'cephalopoda') return 'An ancient cephalopod, related to octopus and squid'
-    return 'An ancient mollusk — a shelled sea creature'
+    if (c === 'bivalvia') return '🐚 An ancient bivalve — a type of clam or mussel'
+    if (c === 'gastropoda') return '🐌 An ancient gastropod — a type of snail'
+    if (c === 'cephalopoda') return '🦑 An ancient cephalopod, related to octopus and squid'
+    return '🐚 An ancient mollusk — a shelled sea creature'
   }
 
   // Chordates (vertebrates)
   if (p === 'chordata') {
-    if (c === 'mammalia') return 'An ancient mammal'
-    if (c === 'reptilia') return 'An ancient reptile'
-    if (c === 'dinosauria' || c === 'saurischia' || c === 'ornithischia') return 'A dinosaur'
-    if (c === 'aves') return 'An ancient bird'
-    if (c === 'amphibia') return 'An ancient amphibian'
-    if (c === 'actinopterygii' || c === 'osteichthyes') return 'An ancient bony fish'
-    if (c === 'chondrichthyes') return 'An ancient shark or ray'
-    if (c === 'placodermi') return 'An ancient armored fish, known as a placoderm'
-    return 'An ancient vertebrate — an animal with a backbone'
+    if (c === 'mammalia') return '🦣 An ancient mammal'
+    if (c === 'reptilia') return '🦎 An ancient reptile'
+    if (c === 'dinosauria' || c === 'saurischia' || c === 'ornithischia') return '🦕 A dinosaur'
+    if (c === 'aves') return '🐦 An ancient bird'
+    if (c === 'amphibia') return '🐸 An ancient amphibian'
+    if (c === 'actinopterygii' || c === 'osteichthyes') return '🐟 An ancient bony fish'
+    if (c === 'chondrichthyes') return '🦈 An ancient shark or ray'
+    if (c === 'placodermi') return '🐟 An ancient armored fish, known as a placoderm'
+    return '🦴 An ancient vertebrate — an animal with a backbone'
   }
 
   // Echinoderms
   if (p === 'echinodermata') {
-    if (c === 'crinoidea') return 'An ancient sea lily, known as a crinoid'
-    if (c === 'echinoidea') return 'An ancient sea urchin'
-    if (c === 'asteroidea') return 'An ancient starfish'
-    return 'An ancient echinoderm, related to starfish and sea urchins'
+    if (c === 'crinoidea') return '🌊 An ancient sea lily, known as a crinoid'
+    if (c === 'echinoidea') return '🌊 An ancient sea urchin'
+    if (c === 'asteroidea') return '⭐ An ancient starfish'
+    return '🌊 An ancient echinoderm, related to starfish and sea urchins'
   }
 
   // Brachiopods
-  if (p === 'brachiopoda') return 'An ancient brachiopod — a shelled marine animal, often mistaken for a clam'
+  if (p === 'brachiopoda') return '🐚 An ancient brachiopod — a shelled marine animal, often mistaken for a clam'
 
   // Cnidarians
-  if (p === 'cnidaria') return 'An ancient coral or jellyfish relative'
+  if (p === 'cnidaria') return '🪸 An ancient coral or jellyfish relative'
 
   // Bryozoans
-  if (p === 'bryozoa') return 'An ancient bryozoan — a tiny colonial marine animal'
+  if (p === 'bryozoa') return '🪸 An ancient bryozoan — a tiny colonial marine animal'
 
   // Porifera
-  if (p === 'porifera') return 'An ancient sponge'
+  if (p === 'porifera') return '🧽 An ancient sponge'
 
   // Plants
-  if (p === 'tracheophyta' || p === 'plantae') return 'An ancient plant'
+  if (p === 'tracheophyta' || p === 'plantae') return '🌿 An ancient plant'
 
   // Foraminifera
-  if (p === 'foraminifera') return 'A foraminifera — a microscopic shelled organism'
+  if (p === 'foraminifera') return '🔬 A foraminifera — a microscopic shelled organism'
 
   if (phylum) return `An ancient ${phylum} organism`
   return null
