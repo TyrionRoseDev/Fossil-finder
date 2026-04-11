@@ -1,0 +1,280 @@
+.species-page-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: flex-end;
+  animation: sp-fadeIn 0.2s ease;
+}
+
+@keyframes sp-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.species-page {
+  width: 520px;
+  max-width: 100vw;
+  height: 100%;
+  overflow-y: auto;
+  background: #121214;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  animation: sp-slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes sp-slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* Navigation */
+.species-page-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+}
+
+.species-page-back {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.species-page-back:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.species-page-close {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  color: #ffffff;
+  font-size: 1.1rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.species-page-close:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Hero image */
+.species-page-hero {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  background: #1a1a1e;
+}
+
+.species-page-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.species-page-hero-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background: linear-gradient(transparent, #121214);
+}
+
+/* No image placeholder */
+.species-page-no-hero {
+  height: 60px;
+}
+
+/* Content */
+.species-page-content {
+  padding: 0 28px 40px;
+  margin-top: -40px;
+  position: relative;
+}
+
+.species-page-header {
+  margin-bottom: 28px;
+}
+
+.species-page-name {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.species-page-scientific {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #80868b;
+  margin-top: 6px;
+}
+
+.species-page-creature {
+  font-size: 0.88rem;
+  color: #e8eaed;
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(66, 133, 244, 0.08);
+  border-radius: 12px;
+  border-left: 3px solid #4285f4;
+  line-height: 1.5;
+}
+
+/* Quick facts */
+.species-page-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.species-page-fact {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.species-page-fact-label {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #80868b;
+  margin-bottom: 6px;
+}
+
+.species-page-fact-value {
+  display: block;
+  font-size: 0.85rem;
+  color: #e8eaed;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Description */
+.species-page-description {
+  margin-bottom: 28px;
+}
+
+.species-page-section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e8eaed;
+  margin-bottom: 12px;
+}
+
+.species-page-text {
+  font-size: 0.9rem;
+  color: #bdc1c6;
+  line-height: 1.75;
+}
+
+/* Loading */
+.species-page-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+  color: #80868b;
+  font-size: 0.85rem;
+}
+
+.species-page-loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4285f4;
+  animation: sp-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes sp-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.species-page-no-data {
+  color: #80868b;
+  font-size: 0.85rem;
+  padding: 24px 0;
+  line-height: 1.6;
+}
+
+/* Links */
+.species-page-wiki-link,
+.species-page-pbdb-link {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 14px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  margin-bottom: 10px;
+}
+
+.species-page-wiki-link {
+  background: #4285f4;
+  color: #ffffff;
+}
+
+.species-page-wiki-link:hover {
+  background: #1a73e8;
+}
+
+.species-page-pbdb-link {
+  background: transparent;
+  color: #8ab4f8;
+  border: 1.5px solid rgba(138, 180, 248, 0.25);
+}
+
+.species-page-pbdb-link:hover {
+  background: rgba(138, 180, 248, 0.08);
+  border-color: rgba(138, 180, 248, 0.4);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .species-page {
+    width: 100%;
+  }
+
+  .species-page-hero {
+    height: 240px;
+  }
+
+  .species-page-name {
+    font-size: 1.8rem;
+  }
+}

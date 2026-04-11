@@ -15,7 +15,13 @@
 .filter-chip {
   font-family: var(--font-body);
   font-size: 0.7rem;
-  color: var(--color-gold);
+  font-weight: 500;
+  color: #e8eaed;
+  background: rgba(32, 33, 36, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-sm);
   padding: 4px 12px;
   border-radius: 14px;
   cursor: pointer;
@@ -26,7 +32,7 @@
 }
 
 .filter-chip:hover {
-  background: var(--color-gold-subtle);
+  background: rgba(60, 64, 67, 0.9);
 }
 
 .filter-chip-close {
@@ -36,12 +42,12 @@
 }
 
 .filter-chip-add {
-  background: rgba(212, 169, 89, 0.08);
-  border: 1px solid rgba(212, 169, 89, 0.15);
-  color: var(--color-text-secondary);
+  background: rgba(32, 33, 36, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #9aa0a6;
 }
 
 .filter-chip-add:hover {
-  border-color: var(--color-gold-border);
-  color: var(--color-gold);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }

@@ -6,7 +6,9 @@ import FilterChips from './components/FilterChips'
 import FilterPanel from './components/FilterPanel'
 import TimelineSlider from './components/TimelineSlider'
 import FavoritesMenu from './components/FavoritesMenu'
-import { fetchClusters, fetchOccurrences } from './api/pbdb'
+import ResultsPanel from './components/ResultsPanel'
+import SpeciesPage from './components/SpeciesPage'
+import { fetchClusters, fetchOccurrences, fetchFilteredOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
 import { useFavorites } from './hooks/useFavorites'
 
@@ -22,8 +24,12 @@ function App() {
     ageMin: '',
     ageMax: '',
   })
+  const [fitTarget, setFitTarget] = useState(null)
+  const [lastFitFilter, setLastFitFilter] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [speciesInfo, setSpeciesInfo] = useState(null) // { fossil, creatureType }
 
-  const debouncedMapView = useDebounce(mapView, 300)
+  const debouncedMapView = useDebounce(mapView, 600)
 
   const handleViewChange = useCallback((view) => {
     setMapView(view)
@@ -58,6 +64,30 @@ function App() {
     setFilters(newFilters)
   }, [])
 
+  // Fetch individual occurrences for the results list when filters are active
+  useEffect(() => {
+    const hasFilter = filters.taxon || filters.interval || filters.ageMin || filters.ageMax
+    if (!hasFilter) {
+      setSearchResults([])
+      return
+    }
+
+    const controller = new AbortController()
+    const filterKey = `${filters.taxon}|${filters.interval}|${filters.ageMin}|${filters.ageMax}`
+    fetchFilteredOccurrences(filters)
+      .then((data) => {
+        if (!controller.signal.aborted) {
+          setSearchResults(data)
+          if (data.length > 0 && filterKey !== lastFitFilter) {
+            setFitTarget(data)
+            setLastFitFilter(filterKey)
+          }
+        }
+      })
+      .catch(() => {})
+    return () => controller.abort()
+  }, [filters])
+
   useEffect(() => {
     if (!debouncedMapView) return
 
@@ -69,12 +99,17 @@ function App() {
       try {
         let data
         if (debouncedMapView.zoom <= 5) {
-          data = await fetchClusters(filters)
+          data = await fetchClusters(debouncedMapView, filters, debouncedMapView.zoom)
         } else {
           data = await fetchOccurrences(debouncedMapView, filters)
         }
         if (!controller.signal.aborted) {
           setFossils(data)
+          const hasFilter = filters.taxon || filters.interval || filters.ageMin || filters.ageMax
+          if (!hasFilter) {
+            setFitTarget(null)
+            setLastFitFilter('')
+          }
         }
       } catch (err) {
         if (!controller.signal.aborted) {
@@ -93,19 +128,20 @@ function App() {
 
   return (
     <div className="app">
-      <header className="app-header glass">
+      <header className="app-header">
         <div className="app-logo">
-          <div className="app-logo-icon">&#129430;</div>
-          <div className="app-logo-text">
-            <span className="app-logo-title">FOSSIL TRACKER</span>
-            <span className="app-logo-subtitle">Explore Deep Time</span>
-          </div>
+          <svg className="app-logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="11" fill="#4285f4" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 2c1.5 0 2.8.5 3.9 1.3L14.5 8H12l-2 3h3l-1 3-3.5 5.5C6.3 18.2 5 15.8 5 13c0-3.9 3.1-7 7-7v2z" fill="rgba(255,255,255,0.9)" />
+          </svg>
+          <span className="app-logo-title">Fossil Tracker</span>
         </div>
       </header>
       <MapView
         onViewChange={handleViewChange}
         fossils={fossils}
         onExplore={handleExplore}
+        fitTarget={fitTarget}
       />
       <SearchBar onSelect={handleSearch} />
       <FavoritesMenu count={favorites.length} />
@@ -113,6 +149,11 @@ function App() {
         filters={filters}
         onRemove={handleRemoveFilter}
         onOpenPanel={() => setFilterPanelOpen(true)}
+      />
+      <ResultsPanel
+        fossils={searchResults.length > 0 ? searchResults : fossils}
+        isClustered={searchResults.length === 0 && debouncedMapView?.zoom <= 5}
+        onSelect={handleExplore}
       />
       <TimelineSlider filters={filters} onFilterChange={setFilters} />
       {filterPanelOpen && (
@@ -133,7 +174,19 @@ function App() {
         onClose={() => setDetailFossil(null)}
         isFavorite={detailFossil ? isFavorite(detailFossil.occurrence_no) : false}
         onToggleFavorite={toggleFavorite}
+        onShowSpecies={(fossil, creatureType) => setSpeciesInfo({ fossil, creatureType })}
       />
+      {speciesInfo && (
+        <SpeciesPage
+          fossil={speciesInfo.fossil}
+          creatureType={speciesInfo.creatureType}
+          onClose={() => {
+            setSpeciesInfo(null)
+            setDetailFossil(null)
+          }}
+          onBack={() => setSpeciesInfo(null)}
+        />
+      )}
     </div>
   )
 }

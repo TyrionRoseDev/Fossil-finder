@@ -14,9 +14,11 @@
   max-width: 90vw;
   max-height: 80vh;
   overflow-y: auto;
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
   animation: scaleIn 0.2s ease;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xl);
 }
 
 @keyframes scaleIn {
@@ -27,8 +29,11 @@
 .filter-panel-accent {
   position: absolute;
   top: 0;
-  left: 20px;
-  right: 20px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: 12px 12px 0 0;
 }
 
 .filter-panel-header {
@@ -39,7 +44,8 @@
 }
 
 .filter-panel-title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
+  font-weight: 600;
   color: var(--color-text);
   font-size: 1.1rem;
 }
@@ -47,18 +53,18 @@
 .filter-panel-close {
   background: none;
   border: none;
-  color: var(--color-gold-muted);
+  color: var(--color-text-secondary);
   font-size: 1.4rem;
   cursor: pointer;
 }
 
 .filter-panel-close:hover {
-  color: var(--color-gold);
+  color: var(--color-text);
 }
 
 .filter-panel-section {
   padding: 12px 20px;
-  border-top: 1px solid var(--color-gold-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .filter-panel-section .label {
@@ -72,8 +78,8 @@
 }
 
 .filter-panel-taxon {
-  background: var(--color-gold-subtle);
-  border: 1px solid var(--color-gold-border);
+  background: var(--color-hover);
+  border: 1px solid var(--color-border);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -84,19 +90,20 @@
 }
 
 .filter-panel-taxon:hover {
-  background: var(--color-gold-border);
+  background: var(--color-accent-subtle);
+  border-color: var(--color-accent);
 }
 
 .filter-panel-taxon.active {
-  background: var(--color-gold);
-  color: var(--color-base);
-  border-color: var(--color-gold);
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
 }
 
 .filter-panel-select {
   width: 100%;
   background: var(--color-surface);
-  border: 1px solid var(--color-gold-border);
+  border: 1px solid var(--color-border);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 0.85rem;
@@ -107,7 +114,7 @@
 }
 
 .filter-panel-select:focus {
-  border-color: var(--color-gold);
+  border-color: var(--color-accent);
 }
 
 .filter-panel-select option {
@@ -119,14 +126,14 @@
   display: flex;
   gap: 10px;
   padding: 16px 20px;
-  border-top: 1px solid var(--color-gold-border);
+  border-top: 1px solid var(--color-border);
 }
 
 .filter-panel-clear {
   flex: 1;
   background: none;
-  border: 1px solid var(--color-gold-border);
-  color: var(--color-gold-muted);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
   font-family: var(--font-body);
   font-size: 0.8rem;
   padding: 10px;
@@ -136,26 +143,26 @@
 }
 
 .filter-panel-clear:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 .filter-panel-apply {
   flex: 1;
-  background: var(--color-gold);
+  background: var(--color-accent);
   border: none;
-  color: var(--color-base);
+  color: #ffffff;
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
-  transition: opacity var(--transition-smooth);
+  transition: background var(--transition-smooth);
 }
 
 .filter-panel-apply:hover {
-  opacity: 0.9;
+  background: var(--color-accent-hover);
 }
 
 /* Mobile: full-screen */

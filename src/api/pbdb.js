@@ -35,10 +35,16 @@ async function fetchJson(path, params) {
   return data.records || []
 }
 
-export async function fetchClusters(filters = {}) {
+export async function fetchClusters(bounds, filters = {}, zoom = 3) {
   const hasFilter = filters.taxon || filters.interval || filters.ageMin || filters.ageMax
+  // PBDB geosum levels: 1 = coarsest (~50 bins), 2 = ~200, 3 = ~800
+  const level = zoom <= 3 ? 1 : 2
   const params = {
-    level: 2,
+    level,
+    lngmin: bounds.west,
+    lngmax: bounds.east,
+    latmin: bounds.south,
+    latmax: bounds.north,
     base_name: filters.taxon || undefined,
     interval: filters.interval || undefined,
     min_ma: filters.ageMin || undefined,
@@ -59,7 +65,20 @@ export async function fetchOccurrences(bounds, filters = {}) {
     interval: filters.interval,
     min_ma: filters.ageMin,
     max_ma: filters.ageMax,
-    show: 'coords,loc,time,class',
+    show: 'coords,loc,time,class,rem,coll',
+    limit: 500,
+  }
+  const records = await fetchJson('/occs/list.json', params)
+  return parseOccurrences(records)
+}
+
+export async function fetchFilteredOccurrences(filters = {}) {
+  const params = {
+    base_name: filters.taxon,
+    interval: filters.interval,
+    min_ma: filters.ageMin,
+    max_ma: filters.ageMax,
+    show: 'coords,loc,time,class,rem,coll',
     limit: 500,
   }
   const records = await fetchJson('/occs/list.json', params)

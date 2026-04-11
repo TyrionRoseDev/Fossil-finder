@@ -1,25 +1,23 @@
-/* Individual fossil marker — glowing amber dot */
+/* Individual fossil marker — blue dot */
 .fossil-marker {
   background: none !important;
   border: none !important;
 }
 
 .fossil-marker-dot {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: radial-gradient(circle, #f0c040 0%, #d4a030 60%, #8b6914 100%);
-  box-shadow: 0 0 20px rgba(212, 169, 89, 0.5), 0 0 40px rgba(212, 169, 89, 0.2);
-  border: 2px solid rgba(240, 200, 80, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #4285f4;
+  border: 2px solid rgba(66, 133, 244, 0.4);
 }
 
 .fossil-marker-dot:hover {
   transform: scale(1.3);
-  box-shadow: 0 0 30px rgba(212, 169, 89, 0.7), 0 0 60px rgba(212, 169, 89, 0.3);
+  box-shadow: 0 0 12px rgba(66, 133, 244, 0.5);
 }
 
-/* Cluster markers — amber circles with count */
+/* Cluster markers — blue circles with count */
 .fossil-cluster {
   background: none !important;
   border: none !important;
@@ -29,16 +27,15 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 169, 89, 0.9), rgba(139, 105, 20, 0.8));
-  box-shadow: 0 0 20px rgba(212, 169, 89, 0.4), 0 0 40px rgba(212, 169, 89, 0.15);
-  border: 2px solid rgba(240, 200, 80, 0.3);
+  background: rgba(66, 133, 244, 0.85);
+  border: 2px solid rgba(66, 133, 244, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-body);
   font-size: 0.7rem;
   font-weight: 700;
-  color: var(--color-base);
+  color: #ffffff;
 }
 
 .fossil-cluster-large .fossil-cluster-inner {
@@ -56,4 +53,19 @@
   width: 30px;
   height: 30px;
   font-size: 0.65rem;
+}
+
+/* Geo-summary tooltip */
+.fossil-geo-tooltip {
+  background: var(--color-surface) !important;
+  border: none !important;
+  color: var(--color-text) !important;
+  font-size: 0.7rem !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.fossil-geo-tooltip::before {
+  border-top-color: var(--color-surface) !important;
 }
