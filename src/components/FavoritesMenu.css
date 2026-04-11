@@ -1,8 +1,11 @@
-.favorites-button {
+.favorites-wrapper {
   position: fixed;
   top: 68px;
   right: 16px;
   z-index: 1000;
+}
+
+.favorites-button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -16,6 +19,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-smooth);
+  position: relative;
 }
 
 .favorites-button:hover {
@@ -41,4 +45,105 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.favorites-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 300px;
+  background: rgba(28, 30, 33, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: favsFadeIn 0.15s ease;
+}
+
+@keyframes favsFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.favorites-header {
+  padding: 14px 16px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e8eaed;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.favorites-empty {
+  padding: 20px 16px;
+  font-size: 0.78rem;
+  color: #80868b;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.favorites-list {
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.favorites-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.favorites-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.favorites-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.favorites-item-name {
+  display: block;
+  font-size: 0.8rem;
+  font-family: var(--font-display);
+  color: #e8eaed;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favorites-item-meta {
+  display: block;
+  font-size: 0.62rem;
+  color: #9aa0a6;
+  margin-top: 2px;
+}
+
+.favorites-item-remove {
+  background: none;
+  border: none;
+  color: #80868b;
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s ease;
+  flex-shrink: 0;
+}
+
+.favorites-item-remove:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e8eaed;
 }

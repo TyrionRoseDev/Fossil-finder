@@ -93,8 +93,9 @@
 .species-page-hero-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  background: #1a1a1e;
 }
 
 .species-page-hero-gradient {

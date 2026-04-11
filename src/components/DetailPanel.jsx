@@ -272,7 +272,7 @@ function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpec
         .flatMap(tag => tag.split(', '))
     : []
 
-  const ageText = fossil.max_ma && fossil.min_ma
+  const ageText = fossil.max_ma != null && fossil.min_ma != null && fossil.max_ma > 0
     ? `${fossil.max_ma}–${fossil.min_ma} million years ago`
     : null
 
@@ -365,7 +365,7 @@ function DetailPanel({ fossil, onClose, isFavorite, onToggleFavorite, onShowSpec
         <div className="detail-panel-actions">
           <button
             className="detail-panel-action detail-panel-action-save"
-            onClick={() => onToggleFavorite(fossil.occurrence_no)}
+            onClick={() => onToggleFavorite(fossil)}
           >
             {isFavorite ? '♥ Saved' : '♡ Save'}
           </button>

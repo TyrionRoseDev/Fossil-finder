@@ -144,11 +144,16 @@ function App() {
         fitTarget={fitTarget}
       />
       <SearchBar onSelect={handleSearch} />
-      <FavoritesMenu count={favorites.length} />
+      <FavoritesMenu
+        favorites={favorites}
+        onSelect={handleExplore}
+        onRemove={toggleFavorite}
+      />
       <FilterChips
         filters={filters}
         onRemove={handleRemoveFilter}
         onOpenPanel={() => setFilterPanelOpen(true)}
+        onQuickFilter={(taxon) => setFilters((prev) => ({ ...prev, taxon }))}
       />
       <ResultsPanel
         fossils={searchResults.length > 0 ? searchResults : fossils}

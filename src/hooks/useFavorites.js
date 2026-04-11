@@ -16,16 +16,29 @@ export function useFavorites() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
   }, [favorites])
 
-  const toggleFavorite = useCallback((occurrenceNo) => {
-    setFavorites((prev) =>
-      prev.includes(occurrenceNo)
-        ? prev.filter((id) => id !== occurrenceNo)
-        : [...prev, occurrenceNo]
-    )
+  const toggleFavorite = useCallback((fossil) => {
+    setFavorites((prev) => {
+      const exists = prev.some((f) => f.occurrence_no === fossil.occurrence_no)
+      if (exists) {
+        return prev.filter((f) => f.occurrence_no !== fossil.occurrence_no)
+      }
+      // Store a minimal subset of the fossil data
+      return [...prev, {
+        occurrence_no: fossil.occurrence_no,
+        accepted_name: fossil.accepted_name || fossil.identified_name || 'Unknown',
+        early_interval: fossil.early_interval || '',
+        max_ma: fossil.max_ma || '',
+        min_ma: fossil.min_ma || '',
+        lat: fossil.lat,
+        lng: fossil.lng,
+        phylum: fossil.phylum || '',
+        class: fossil.class || '',
+      }]
+    })
   }, [])
 
   const isFavorite = useCallback(
-    (occurrenceNo) => favorites.includes(occurrenceNo),
+    (occurrenceNo) => favorites.some((f) => f.occurrence_no === occurrenceNo),
     [favorites]
   )
 

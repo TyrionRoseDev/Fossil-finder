@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import './FossilPopup.css'
 
-function FossilPopup({ fossil, onExplore }) {
+const FossilPopup = memo(function FossilPopup({ fossil, onExplore }) {
   const location = [fossil.state, fossil.cc].filter(Boolean).join(', ')
 
   return (
@@ -31,6 +32,6 @@ function FossilPopup({ fossil, onExplore }) {
       </div>
     </div>
   )
-}
+})
 
 export default FossilPopup
