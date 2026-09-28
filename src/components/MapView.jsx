@@ -1,5 +1,8 @@
 import { useState, useRef, useCallback, memo, useEffect } from 'react'
 import Map from 'react-map-gl/mapbox'
+// Imported here (not in main.jsx) so the Mapbox styles ship with the lazy map chunk
+// instead of render-blocking the initial page.
+import 'mapbox-gl/dist/mapbox-gl.css'
 import FossilMarkers from './FossilMarkers'
 import './MapView.css'
 

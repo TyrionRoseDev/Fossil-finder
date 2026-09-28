@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
-import MapView from './components/MapView'
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import SearchBar from './components/SearchBar'
 import DetailPanel from './components/DetailPanel'
 import FilterChips from './components/FilterChips'
@@ -11,6 +10,9 @@ import SpeciesPage from './components/SpeciesPage'
 import { fetchClusters, fetchOccurrences, fetchFilteredOccurrences } from './api/pbdb'
 import { useDebounce } from './hooks/useDebounce'
 import { useFavorites } from './hooks/useFavorites'
+
+// Mapbox GL is ~1.7 MB of JS. Load it in its own chunk so the page shell can paint first.
+const MapView = lazy(() => import('./components/MapView'))
 
 function App() {
   const [mapView, setMapView] = useState(null)
@@ -30,6 +32,20 @@ function App() {
   const [searchResults, setSearchResults] = useState([])
   const [hasInteracted, setHasInteracted] = useState(false)
   const [speciesInfo, setSpeciesInfo] = useState(null) // { fossil, creatureType }
+  const [mapEnabled, setMapEnabled] = useState(false)
+
+  // Wait until the first frame (loading screen + header) has painted before pulling in
+  // the heavy map bundle, so evaluating Mapbox doesn't hold up first paint.
+  useEffect(() => {
+    let timeoutId
+    const frameId = requestAnimationFrame(() => {
+      timeoutId = setTimeout(() => setMapEnabled(true), 0)
+    })
+    return () => {
+      cancelAnimationFrame(frameId)
+      clearTimeout(timeoutId)
+    }
+  }, [])
 
   // Mark app as ready once first data loads
   useEffect(() => {
@@ -159,12 +175,16 @@ function App() {
           <span className="app-logo-title">Fossil Tracker</span>
         </div>
       </header>
-      <MapView
-        onViewChange={handleViewChange}
-        fossils={fossils}
-        onExplore={handleExplore}
-        fitTarget={fitTarget}
-      />
+      <Suspense fallback={null}>
+        {mapEnabled && (
+          <MapView
+            onViewChange={handleViewChange}
+            fossils={fossils}
+            onExplore={handleExplore}
+            fitTarget={fitTarget}
+          />
+        )}
+      </Suspense>
       <SearchBar onSelect={handleSearch} />
       <FavoritesMenu
         favorites={favorites}

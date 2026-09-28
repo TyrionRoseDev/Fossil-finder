@@ -96,6 +96,7 @@ function TimelineSlider({ filters, onFilterChange }) {
           min={MIN_AGE}
           max={MAX_AGE}
           value={ageMax}
+          aria-label="Oldest age (millions of years ago)"
           onChange={handleMaxChange}
           onMouseUp={handleCommit}
           onTouchEnd={handleCommit}
@@ -106,6 +107,7 @@ function TimelineSlider({ filters, onFilterChange }) {
           min={MIN_AGE}
           max={MAX_AGE}
           value={ageMin}
+          aria-label="Youngest age (millions of years ago)"
           onChange={handleMinChange}
           onMouseUp={handleCommit}
           onTouchEnd={handleCommit}
